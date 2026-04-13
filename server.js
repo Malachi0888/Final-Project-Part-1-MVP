@@ -1,34 +1,18 @@
-const express = require('express');
-const app = express();
-app.use(express.json());
+const app = require('./app');
+const { sequelize } = require('./database/models');
 
-let items = [];
+const PORT = process.env.PORT || 3000;
 
-// GET
-app.get('/items', (req, res) => {
-  res.json(items);
-});
+async function startServer() {
+  try {
+    await sequelize.authenticate();
+    await sequelize.sync();
+    app.listen(PORT, () => {
+      console.log(`Server running on port ${PORT}`);
+    });
+  } catch (error) {
+    console.error('Unable to start server:', error.message);
+  }
+}
 
-// POST
-app.post('/items', (req, res) => {
-  const item = req.body;
-  items.push(item);
-  res.status(201).json(item);
-});
-
-// PUT
-app.put('/items/:id', (req, res) => {
-  const id = req.params.id;
-  items[id] = req.body;
-  res.json(items[id]);
-});
-
-// DELETE
-app.delete('/items/:id', (req, res) => {
-  items.splice(req.params.id, 1);
-  res.json({ message: "Deleted" });
-});
-
-app.listen(3000, () => {
-  console.log('Server running on port 3000');
-});
+startServer();

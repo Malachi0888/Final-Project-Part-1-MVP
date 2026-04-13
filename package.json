@@ -1,1 +1,33 @@
-npm init -y
+{
+  "name": "final-project-part-1-mvp",
+  "version": "1.0.0",
+  "description": "Backend MVP REST API for courses, assignments, and study sessions",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "setup": "node database/setup.js",
+    "seed": "node database/seed.js",
+    "test": "jest --runInBand"
+  },
+  "keywords": [
+    "express",
+    "sequelize",
+    "sqlite",
+    "rest-api"
+  ],
+  "author": "Malachi Maestas",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2",
+    "sequelize": "^6.37.3",
+    "sqlite3": "^5.1.7"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "supertest": "^7.0.0"
+  },
+  "jest": {
+    "testEnvironment": "node"
+  }
+}
